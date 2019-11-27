@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjh.dao.UserDao" >
+
+    <!--添加用户-->
+    <insert id="addUser"   parameterType="com.zjh.bean.User">
+        insert into manager.t_user (name, role, sex, password, dept, phone,state, create_time, out_time, update_time)
+            values (#{name},#{role},#{sex},#{password},#{dept},#{phone},1,current_timestamp ,'2199-01-01',current_timestamp )
+    </insert>
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="int" >
+        update t_user set state = 0 where id = #{id}
+    </delete>
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="com.zjh.bean.User">
+    update t_user set name = #{name},role = #{role},sex = #{sex},password = #{password},
+            dept = #{dept},phone = #{phone},
+            update_time = current_timestamp where id = #{id}
+    </update>
+    <!--查询用户信息-->
+    <select id="findById" parameterType="int" resultType="com.zjh.bean.User">
+        select * from t_user where id = #{id}
+    </select>
+    <select id="findByName" resultType="com.zjh.bean.User">
+        select username,password from t_user
+    </select>
+
+
+    <select id="findByNameOrPhone" resultType="com.zjh.bean.User">
+        select name,password from t_user where name = #{str};
+    </select>
+    <select id="findByPhone" resultType="String">
+        select phone,password from  where phone = #{phone}
+    </select>
+    <select id="findAll" resultType="com.zjh.bean.User">
+      /*  select u.id,u.name,u.sex,u.password,u.dept,d.name,u.phone,u.create_time,u.out_time,u.update_time
+            from t_user u join t_dept d on u.dept = d.id*/
+            select * from t_user where state =1;
+    </select>
+</mapper>

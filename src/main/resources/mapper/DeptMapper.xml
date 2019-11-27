@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjh.dao.DeptDao">
+    <!--查询所有部门-->
+    <select id="findAll" resultType="com.zjh.bean.Dept">
+        select * from t_dept;
+    </select>
+   <!-- 添加部门-->
+    <insert id="addDept" parameterType="com.zjh.bean.Dept">
+        insert into t_dept (name,manager,create_time,update_time) values (#{name},#{manager},current_time ,current_timestamp )
+    </insert>
+    <!--删除部门-->
+    <delete id="deleteDept" parameterType="int">
+        delete from t_dept where id = #{id}
+    </delete>
+    <!--修改部门信息-->
+    <update id="updateDept" parameterType="com.zjh.bean.Dept">
+        update t_dept set name = #{name},manager = #{manager}, update_time = current_timestamp
+        where id = #{id}
+    </update>
+    <select id="findOneById" parameterType="int" resultType="com.zjh.bean.Dept">
+        select * from  t_dept where id = #{id}
+    </select>
+
+
+</mapper>
